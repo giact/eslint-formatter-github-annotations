@@ -1,13 +1,13 @@
-# eslint-formatter-github-annotations
+# @giact/eslint-formatter-github-annotations
 
 An [ESLint](https://eslint.org/) formatter to report as GitHub Checks annotations
 
 ## Usage
 
-1. Add `eslint-formatter-github-annotations` to your dependencies:
+1. Add `@giact/eslint-formatter-github-annotations` to your dependencies:
 
    ```shell
-   npm install --save-dev eslint-formatter-github-annotations
+   npm install --save-dev @giact/eslint-formatter-github-annotations
    ```
 
 2. Create a GitHub action workflow with this formatter:
@@ -22,7 +22,7 @@ An [ESLint](https://eslint.org/) formatter to report as GitHub Checks annotation
        steps:
          - uses: actions/checkout@v2
          - run: npm install
-         - run: npx eslint -f github-annotations .
+         - run: npx eslint -f @giact/eslint-formatter-github-annotations .
    ```
 
 ## Testing
