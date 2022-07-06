@@ -3,7 +3,8 @@
   "compilerOptions": {
     "sourceMap": true,
     "outDir": "dist",
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "declaration": true
   },
   "include": ["src/**/*"],
   "exclude": [

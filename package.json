@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "description": "An ESLint formatter to report as GitHub Checks annotations",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "tsc && mocha"
+    "test": "npm run build && mocha",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -16,6 +18,7 @@
   },
   "files": [
     "dist/index.js",
+    "dist/index.d.ts",
     "LICENSE",
     "README.md"
   ],
