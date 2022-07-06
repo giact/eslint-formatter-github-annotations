@@ -2,9 +2,10 @@
   "name": "eslint-formatter-github-annotations",
   "version": "0.1.0",
   "description": "An ESLint formatter to report as GitHub Checks annotations",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha"
+    "build": "tsc",
+    "test": "tsc && mocha"
   },
   "repository": {
     "type": "git",
@@ -14,7 +15,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
-    "index.js",
+    "dist/index.js",
     "LICENSE",
     "README.md"
   ],
