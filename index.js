@@ -2,12 +2,12 @@
  * @fileoverview GitHub checks annotations formatter
  */
 
-"use strict";
+'use strict';
 
-const path = require("path");
+const path = require('path');
 
-const ESCAPE_MAP = { "%": "", "\n": "%0A", "\r": "%0D" };
-const ESCAPE_REGEXP = new RegExp(`${Object.keys(ESCAPE_MAP).join("|")}`);
+const ESCAPE_MAP = {'%': '', '\n': '%0A', '\r': '%0D'};
+const ESCAPE_REGEXP = new RegExp(`${Object.keys(ESCAPE_MAP).join('|')}`);
 
 //------------------------------------------------------------------------------
 // Helper Functions
@@ -28,7 +28,7 @@ function githubEscape(string) {
 //------------------------------------------------------------------------------
 
 module.exports = function (results) {
-  let output = "";
+  let output = '';
   let total = 0;
 
   results.forEach((result) => {
@@ -40,20 +40,20 @@ module.exports = function (results) {
 
     output += `::group::EsLint ${relPath}: errors=${result.errorCount} warnings=${result.warningCount}\n`;
     result.messages.forEach((message) => {
-      output += `::${message.severity === 1 ? "warning" : "error"} `;
+      output += `::${message.severity === 1 ? 'warning' : 'error'} `;
       output += `file=${relPath},line=${message.line || 0}`;
-      output += message.column ? `,col=${message.column}` : "";
-      output += message.ruleId ? `::[${message.ruleId}]` : "";
+      output += message.column ? `,col=${message.column}` : '';
+      output += message.ruleId ? `::[${message.ruleId}]` : '';
       output += ` ${githubEscape(message.message)}`;
-      output += "\n";
+      output += '\n';
     });
-    output += "::endgroup::\n";
+    output += '::endgroup::\n';
   });
 
   if (total === 0) {
-    output += "no problems";
+    output += 'no problems';
   } else {
-    output += `\n${total} problem${total !== 1 ? "s" : ""}`;
+    output += `\n${total} problem${total !== 1 ? 's' : ''}`;
   }
 
   return output;

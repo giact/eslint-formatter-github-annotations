@@ -6,13 +6,13 @@ An [ESLint](https://eslint.org/) formatter to report as GitHub Checks annotation
 
 1. Add `eslint-formatter-github-annotations` to your dependencies:
 
-   ``` shell
+   ```shell
    npm install --save-dev eslint-formatter-github-annotations
    ```
 
 2. Create a GitHub action workflow with this formatter:
 
-   ``` yaml
+   ```yaml
    name: lint
    on:
      pull_request:
@@ -27,7 +27,7 @@ An [ESLint](https://eslint.org/) formatter to report as GitHub Checks annotation
 
 ## Testing
 
-``` shell
+```shell
 npm run test
 ```
 
