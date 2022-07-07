@@ -1,11 +1,11 @@
 /* eslint-disable total-functions/no-unsafe-type-assertion */
 /**
- * @file Tests for github-annotations formatter.
+ * @file Tests for ESlint formatter.
  */
 
-import assert from 'assert';
+import {assert} from 'chai';
 import {ESLint} from 'eslint';
-import formatter from '../dist';
+import formatter from '../src';
 
 describe('formatter:compact', () => {
   describe('when passed no messages', () => {
