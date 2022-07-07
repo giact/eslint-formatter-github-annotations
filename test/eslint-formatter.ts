@@ -1,27 +1,19 @@
+/* eslint-disable total-functions/no-unsafe-type-assertion */
 /**
- * @fileoverview Tests for github-annotations formatter.
+ * @file Tests for github-annotations formatter.
  */
 
-'use strict';
-
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
-
-const assert = require('assert');
-const formatter = require('../');
-
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
+import assert from 'assert';
+import {ESLint} from 'eslint';
+import formatter from '../dist';
 
 describe('formatter:compact', () => {
   describe('when passed no messages', () => {
-    const code = [
+    const code: ReadonlyArray<ESLint.LintResult> = [
       {
         filePath: 'foo.js',
         messages: [],
-      },
+      } as unknown as ESLint.LintResult,
     ];
 
     it('should return nothing', () => {
@@ -32,7 +24,7 @@ describe('formatter:compact', () => {
   });
 
   describe('when passed an error message', () => {
-    const code = [
+    const code: ReadonlyArray<ESLint.LintResult> = [
       {
         filePath: 'foo.js',
         errorCount: 1,
@@ -46,7 +38,7 @@ describe('formatter:compact', () => {
             ruleId: 'foo',
           },
         ],
-      },
+      } as unknown as ESLint.LintResult,
     ];
 
     it('should return a string in the format ::error', () => {
@@ -59,7 +51,10 @@ describe('formatter:compact', () => {
     });
 
     it('should return a string in the format ::warning', () => {
-      code[0].messages[0].severity = 1;
+      const message = code[0]?.messages[0];
+      if (message) {
+        message.severity = 1;
+      }
       const result = formatter(code);
 
       assert.strictEqual(

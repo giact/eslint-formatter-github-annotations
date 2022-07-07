@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && mocha",
+    "test:mocha": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --require ts-node/register 'test/**/*.ts'",
+    "test": "npm run build && npm run test:mocha",
     "prepare": "npm run build"
   },
   "repository": {
@@ -40,7 +41,9 @@
   "homepage": "https://github.com/giact/eslint-formatter-github-annotations#readme",
   "devDependencies": {
     "@tsconfig/node18": "^1.0.1",
+    "@types/chai": "^4.3.1",
     "@types/eslint": "^8.4.5",
+    "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.1",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
@@ -50,6 +53,7 @@
     "mocha": "^10.0.0",
     "prettier": "2.7.1",
     "prettier-plugin-multiline-arrays": "1.1.0",
+    "ts-node": "^10.8.2",
     "typescript": "^4.7.4"
   }
 }

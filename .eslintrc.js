@@ -18,7 +18,7 @@ module.exports = {
         '*.tsx',
       ],
       parserOptions: {
-        project: './tsconfig.json',
+        project: './tsconfig.eslint.json',
       },
       plugins: [
         'total-functions',
