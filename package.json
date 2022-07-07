@@ -2,6 +2,9 @@
   "name": "@giact/eslint-formatter-github-annotations",
   "version": "0.1.1",
   "description": "An ESLint formatter to report as GitHub Checks annotations",
+  "bin": {
+    "prettier-formatter-github": "./dist/bin-prettier-formatter-github.js"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -19,8 +22,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
-    "dist/index.js",
-    "dist/index.d.ts",
+    "dist/*.js",
+    "dist/*.d.ts",
     "LICENSE",
     "README.md"
   ],
@@ -28,6 +31,7 @@
     "eslint",
     "eslint-formatter",
     "eslintformatter",
+    "prettier-formatter",
     "github-actions"
   ],
   "author": "engineering@able.co",

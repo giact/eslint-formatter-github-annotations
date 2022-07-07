@@ -1,51 +1,23 @@
 /**
- * @fileoverview GitHub checks annotations formatter
+ * @file GitHub checks annotations formatter
  */
 
 import path from 'path';
 import {ESLint} from 'eslint';
-
-//------------------------------------------------------------------------------
-// Helper Functions
-//------------------------------------------------------------------------------
-
-/**
- * Returns an escaped string for GitHub checks annotation properties
- * also known as "parameter data" in GitHub documentation
- * https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#about-workflow-commands
- * @param {string} s string to escape
- * @returns {string} escaped string
- * @private
- */
-function githubEscapeProperty(s: string): string {
-  return s // Properties are the values of parameter pairs, e.g. ::error::key=[property]::data
-    .replace(/%/g, '%25')
-    .replace(/\r/g, '%0D')
-    .replace(/\n/g, '%0A')
-    .replace(/:/g, '%3A')
-    .replace(/,/g, '%2C');
-}
-
-/**
- * Returns an escaped string for GitHub checks annotation data
- * also known as "command value" in GitHub documentation
- * https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#about-workflow-commands
- * @param {string} s string to escape
- * @returns {string} escaped string
- * @private
- */
-function githubEscapeData(s: string): string {
-  return s // Data is the last (keyless) value, e.g. ::error::key1=property1::key2=property2::[data]
-    .replace(/%/g, '%25')
-    .replace(/\r/g, '%0D')
-    .replace(/\n/g, '%0A');
-}
+import {githubEscapeData, githubMessage} from './helper';
 
 //------------------------------------------------------------------------------
 // Public Interface
 //------------------------------------------------------------------------------
 
-function formatter(results: ESLint.LintResult[]): string {
+/**
+ * Formats ESLint results as a list of GitHub checks annotations
+ * according to the ESLint Custom Formatter API:
+ * https://eslint.org/docs/latest/developer-guide/working-with-custom-formatters
+ * @param results ESLint results
+ * @returns A multiline string of GitHub checks annotations
+ */
+function eslintFormatter(results: ReadonlyArray<ESLint.LintResult>): string {
   let output = '';
   let total = 0;
 
@@ -59,12 +31,15 @@ function formatter(results: ESLint.LintResult[]): string {
     output += `::group::EsLint ${githubEscapeData(relPath)}: `;
     output += `errors=${result.errorCount} warnings=${result.warningCount}\n`;
     result.messages.forEach((message) => {
-      output += `::${message.severity === 1 ? 'warning' : 'error'} `;
-      output += `file=${githubEscapeProperty(relPath)},line=${message.line || 0}`;
-      output += message.column ? `,col=${message.column}` : '';
-      output += message.ruleId ? `::[${githubEscapeProperty(message.ruleId)}]` : '';
-      output += ` ${githubEscapeData(message.message)}`;
-      output += '\n';
+      output +=
+        githubMessage(
+          message.severity === 1 ? 'warning' : 'error',
+          relPath,
+          message.message,
+          message.line,
+          message.column,
+          message.ruleId
+        ) + '\n';
     });
     output += '::endgroup::\n';
   });
@@ -78,4 +53,4 @@ function formatter(results: ESLint.LintResult[]): string {
   return output;
 }
 
-export = formatter; // this is the TypeScript equivalent of module.exports = formatter;
+export = eslintFormatter; // this is the TypeScript equivalent of module.exports = formatter;
