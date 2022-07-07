@@ -17,6 +17,7 @@
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
+    "EditorConfig.EditorConfig",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "mhutchie.git-graph",
